@@ -1,0 +1,37 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+# Docker
+docker/data/
+.env.docker.local
+
+# PhpStorm
+.idea/
+
+# Exports/backups de bases
+
+/dumps/
+
+# Système
+.DS_Store
+Thumbs.db
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+
+###< symfony/asset-mapper ###
+/.env.dev
+/.env.test

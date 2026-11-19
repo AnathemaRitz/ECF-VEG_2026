@@ -1,0 +1,40 @@
+# Environnement de DÉVELOPPEMENT Vite & Gourmand
+# Tous les ports sont liés à 127.0.0.1 : accessibles uniquement depuis ce poste.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - .:/app
+      - ./docker/Caddyfile:/etc/frankenphp/Caddyfile
+    depends_on: [mariadb, mongodb, mailpit]
+
+  mariadb:
+    image: mariadb:11.4
+    env_file: .env.docker.local
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  mongodb:
+    image: mongo:8.0
+    env_file: .env.docker.local
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      # Crée l'utilisateur applicatif (readWrite) au premier démarrage, volume vide uniquement
+      - ./docker/mongo/init-app-user.js:/docker-entrypoint-initdb.d/init-app-user.js:ro
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  mariadb_data:
+  mongodb_data:

@@ -1,0 +1,11 @@
+# docker/Caddyfile
+{
+    auto_https off
+    frankenphp
+}
+
+:80 {
+    root * /app/public
+    encode gzip
+    php_server
+}
